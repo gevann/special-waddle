@@ -54,14 +54,12 @@ export const makeCommits = async (opts) => {
   const commitTime = new Date(startOfWorkday);
 
   for (const offset of minuteOffsets) {
-    console.log(`\t-committing with offset ${offset} minutes...`);
     const hrs = Math.floor(offset / 60) + 9;
     const mins = offset % 60;
     commitTime.setHours(hrs, mins, Math.floor(Math.random() * 60), Math.floor(Math.random() * 1000));
     // Modify file (append timestamp)
     fs.appendFileSync(filePath, `\n${commitTime.toISOString()}`);
 
-    console.log(`\t- at ${commitTime.toISOString()}`);
     // Git operations
     try {
       await git.add(".");
